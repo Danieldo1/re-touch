@@ -12,7 +12,7 @@ import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 
-const transformationTypes = {
+export const transformationTypes = {
   restore: {
     type: "restore",
     title: "Restore Image",
@@ -67,12 +67,15 @@ const UniqueStylesPage = async ({ params: { type } }: SearchParamProps) => {
         subtitle={transformation.subTitle}
         icon={transformation.icon}
       />
+      <div className="mt-10">
+
       <PageForm
         action="New"
         userId={user._id}
         type={transformation.type as TransformationTypeKey}
         creditBalance={user.creditBalance}
       />
+      </div>
     </>
   );
 };

@@ -119,7 +119,7 @@ declare type SearchParamProps = {
 };
 
 declare type TransformationFormProps = {
-  action: "Add" | "Update";
+  action: "New" | "Update";
   userId: string;
   type: TransformationTypeKey;
   creditBalance: number;

@@ -7,6 +7,10 @@ import {
   Paintbrush,
   GalleryVerticalEnd,
 } from "lucide-react";
+import PageForm from "@/components/PageForm";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 export const transformationTypes = {
   restore: {
@@ -51,14 +55,21 @@ export const transformationTypes = {
 };
 
 
-const UniqueStylesPage = ({params: {type}}:SearchParamProps) => {
+const UniqueStylesPage = async ({params: {type}}:SearchParamProps) => {
   const transformation = transformationTypes[type];
+  const {userId} = auth();
+
+  if(!userId) redirect('/sign-in')
+  const user = await getUserById(userId);
   return (
+    <>
   <Header 
     title={transformation.title} 
     subtitle={transformation.subTitle} 
     icon={transformation.icon}
     />
+    <PageForm action='New' userId={user._id} type={transformation.type as TransformationTypeKey} creditBalance={user.creditBalance} />
+    </>
     
     );
 };

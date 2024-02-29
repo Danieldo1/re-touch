@@ -49,3 +49,8 @@
     --ring: 263.4 70% 50.4%;
   }
 }
+
+.text1 {
+  font-family: var(--font-righteous);
+  font-weight: 400;
+}

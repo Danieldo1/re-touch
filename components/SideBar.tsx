@@ -15,6 +15,7 @@ import {
   UserRound,
   Coins,
 } from "lucide-react";
+import Image from "next/image";
 
 export const navigationLinks = [
   {
@@ -64,7 +65,8 @@ const SideBar = () => {
     <aside className="hidden h-screen w-72 bg-white p-5 shadow-md shadow-purple-200/50 lg:flex">
       <div className="flex size-full flex-col gap-4">
         <Link href="/" className="flex items-center gap-2 md:py-2">
-          <p>LOGO</p>
+          <Image src="/logo.svg" alt="logo" width={50} height={50} />
+          <p className="text1 text-3xl  text-[#9b62c0]">Re-Touch</p>
         </Link>
         <nav className="h-full flex-col justify-between md:flex md:gap-4">
           <SignedIn>
@@ -82,20 +84,17 @@ const SideBar = () => {
                   >
                     <Link
                       href={link.route}
-                      className="font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-4"
+                      className="font-semibold  text-[16px] leading-[140%] flex size-full gap-4 p-4"
                     >
                       <p
-                       
                         className={`${
                           isActive ? "text-black" : "text-gray-700"
                         }`}
                       >
                         {link.icon}
                       </p>
-                   
 
                       {link.label}
-              
                     </Link>
                   </li>
                 );
@@ -130,7 +129,7 @@ const SideBar = () => {
                 );
               })}
               <li className="flex justify-center items-center cursor-pointer gap-2 p-4">
-                <UserButton afterSignOutUrl="/" showName={true}/>
+                <UserButton afterSignOutUrl="/" showName={true} />
               </li>
             </ul>
           </SignedIn>

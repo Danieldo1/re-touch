@@ -7,13 +7,15 @@ import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
 import { AlignRight } from "lucide-react";
 import { navigationLinks } from "./SideBar";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const MobileNavBar = () => {
   const pathname = usePathname();
   return (
     <header className="flex justify-between items-center fixed h-16 w-full border-b-4 border-purple-100 bg-white p-5 lg:hidden">
-      <Link href="/" className="flex items-center gap-2 md:p-2">
-        <p>LOGO</p>
+      <Link href="/" className="flex items-center gap-2 md:py-2">
+        <Image src="/logo.svg" alt="logo" width={35} height={35} />
+        <p className="text1 text-2xl  text-[#9b62c0]">Re-Touch</p>
       </Link>
       <nav className="flex gap-2">
         <SignedIn>
@@ -25,7 +27,10 @@ const MobileNavBar = () => {
             </SheetTrigger>
             <SheetContent className="focus:ring-0 focus-visible:ring-transparent focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none focus-visible:border-none sm:w-64">
               <>
-                <p>LOGO</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Image src="/logo.svg" alt="logo" width={35} height={35} />
+                  <p className="text1 text-2xl  text-[#9b62c0]">Re-Touch</p>
+                </div>
                 <ul className="mt-8 flex w-full flex-col items-start gap-5">
                   {navigationLinks.map((link) => {
                     const isActive = link.route === pathname;
@@ -39,18 +44,18 @@ const MobileNavBar = () => {
                       >
                         <Link
                           href={link.route}
-                          className={` font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-4 cursor-pointer`}
+                          className={` font-semibold text-[16px] leading-[140%] flex items-center size-full gap-4 p-4 cursor-pointer`}
                         >
                           <p
                             className={`${
-                              isActive ? "text-[#7d4c86]" : "text-gray-700"
+                              isActive ? "text-[#9b62c0]" : "text-gray-700"
                             }`}
                           >
                             {link.icon}
                           </p>
                           <p
                             className={`${
-                              isActive ? "text-[#7d4c86]" : "text-gray-700"
+                              isActive ? "text-[#9b62c0]" : "text-gray-700"
                             }`}
                           >
                             {link.label}

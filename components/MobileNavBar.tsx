@@ -17,7 +17,7 @@ const MobileNavBar = () => {
         <Image src="/logo.svg" alt="logo" width={35} height={35} />
         <p className="text1 text-2xl  text-[#9b62c0]">Re-Touch</p>
       </Link>
-      <nav className="flex gap-2">
+      <nav className="flex gap-4">
         <SignedIn>
           <UserButton afterSignOutUrl="/" />
 

@@ -76,9 +76,9 @@ const SideBar = () => {
                 return (
                   <li
                     key={link.route}
-                    className={`flex justify-center items-center font-semibold text-[16px] leading-[140%] w-full whitespace-nowrap rounded-full bg-cover  transition-all hover:bg-purple-100 hover:shadow-inner group ${
+                    className={`flex justify-center items-center font-semibold text-[16px] leading-[140%] w-full whitespace-nowrap rounded-full bg-cover  transition-all hover:bg-[#d7bcd5] hover:shadow-inner group ${
                       isActive
-                        ? "bg-purple-100 text-black shadow-inner"
+                        ? "bg-[#f6d7f4] text-black shadow-inner"
                         : "text-gray-700"
                     }`}
                   >

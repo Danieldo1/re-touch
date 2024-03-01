@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { transformationTypes } from "@/app/(main)/changes/new/[type]/page";
+
 import {
   AspectRatioKey,
   aspectRatioOptions,
@@ -35,6 +35,7 @@ import e from "express";
 import { updateCredits } from "@/lib/actions/user.actions";
 import ImageUpload from "./ImageUpload";
 import ChangedImage from "./ChangedImage";
+import { transformationTypes } from "@/types/transformationTypes";
 
 export const defaultValues = {
   title: "",

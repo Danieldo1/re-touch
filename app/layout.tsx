@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat,Righteous } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/toaster";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -21,7 +22,10 @@ export default function RootLayout({
   return (
     <ClerkProvider appearance={{ variables: { colorPrimary: "#674ea7" } }}>
       <html lang="en">
-        <body className={montserrat.className + " " + righteous.variable}>{children}</body>
+        <body className={montserrat.className + " " + righteous.variable}>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </ClerkProvider>
   );

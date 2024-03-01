@@ -33,6 +33,7 @@ import {
 } from "@/lib/utils";
 import e from "express";
 import { updateCredits } from "@/lib/actions/user.actions";
+import ImageUpload from "./ImageUpload";
 
 export const defaultValues = {
   title: "",
@@ -223,7 +224,24 @@ const PageForm = ({
           </div>
         )}
 
-        <div className="flex flex-col gap-5">
+        <div className="grid h-fit min-h-[200px] grid-cols-1 gap-5 py-4 md:grid-cols-2">
+          <CustomField
+            control={form.control}
+            name="publicId"
+            className="flex size-full flex-col"
+            render={({ field }) => (
+              <ImageUpload
+                onValueChange={field.onChange}
+                setImage={setImage}
+                publicId={field.value}
+                image={image}
+                type={type}
+              />
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 ">
           <Button
             className="bg-[#6075c8] hover:bg-[#5956bb] font-bold bg-cover rounded-full py-4 px-6 p-16-semibold h-[50px] w-full md:h-[54px] capitalize"
             type="button"

@@ -31,11 +31,14 @@ import {
   debounce,
   deepMergeObjects,
 } from "@/lib/utils";
-import e from "express";
+
 import { updateCredits } from "@/lib/actions/user.actions";
 import ImageUpload from "./ImageUpload";
 import ChangedImage from "./ChangedImage";
 import { transformationTypes } from "@/types/transformationTypes";
+import { getCldImageUrl } from "next-cloudinary";
+import { addImage, updateImage } from "@/lib/actions/image.actions";
+import { useRouter } from "next/navigation";
 
 export const defaultValues = {
   title: "",
@@ -66,7 +69,7 @@ const PageForm = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [transformationConfig, setTransformationConfig] = useState(config);
-
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const transformationType = transformationTypes[type];
@@ -86,9 +89,65 @@ const PageForm = ({
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    if(data || image){
+      const transformationUrl = getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image?.publicId,
+        ...transformationConfig,
+      })
+
+      const imageData = {
+          title: values.title,
+         aspectRatio: values.aspectRatio,
+         color: values.color,
+         prompt: values.prompt,
+         publicId: image?.publicId,
+         transformationType: type,
+         width: image?.width,
+         height: image?.height,
+         config: transformationConfig,
+         secureURL: image?.secureURL,
+         transformationURL: transformationUrl,
+      }
+if(action === 'New'){
+  try {
+    const newImage = await addImage({
+      image: imageData,
+      userId,
+      path: '/',
+    })
+    if(newImage){
+      form.reset();
+      setImage(data)
+      router.push(`/changes/${newImage._id}`)
+    }
+  } catch (error) {
+    console.log(error)
   }
+}
+if (action === "Update") {
+  try {
+    const updatedImage = await updateImage({
+      image: {
+        ...imageData,
+        _id: data._id,
+      },
+      userId,
+      path: `/changes/${data._id}`,
+    });
+    if (updatedImage) router.push(`/changes/${updatedImage._id}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+}
+setIsSubmitting(false);
+  
+}
+  
 
   const onSelectField = (
     value: string,
@@ -128,7 +187,7 @@ const PageForm = ({
     setTransformationConfig(deepMergeObjects(newChange, transformationConfig));
     setNewChange(null);
     startTransition(async () => {
-      // await updateCredits(userId,creditFee);
+     await updateCredits(userId,-1);
     });
   };
   return (

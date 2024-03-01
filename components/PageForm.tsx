@@ -34,6 +34,7 @@ import {
 import e from "express";
 import { updateCredits } from "@/lib/actions/user.actions";
 import ImageUpload from "./ImageUpload";
+import ChangedImage from "./ChangedImage";
 
 export const defaultValues = {
   title: "",
@@ -62,8 +63,8 @@ const PageForm = ({
   const [image, setImage] = useState(data);
   const [newChange, setNewChange] = useState<Transformations | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [transformationConfig, setTransformationConfig] = useState(config);
+    const [isLoading, setIsLoading] = useState(false);
+    const [transformationConfig, setTransformationConfig] = useState(config);
 
   const [isPending, startTransition] = useTransition();
 
@@ -238,6 +239,14 @@ const PageForm = ({
                 type={type}
               />
             )}
+          />
+          <ChangedImage
+            image={image}
+            type={type}
+            title={form.getValues("title") || ""}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            transformationConfig={transformationConfig}
           />
         </div>
 

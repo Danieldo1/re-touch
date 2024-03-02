@@ -35,10 +35,11 @@ import {
 import { updateCredits } from "@/lib/actions/user.actions";
 import ImageUpload from "./ImageUpload";
 import ChangedImage from "./ChangedImage";
-import { transformationTypes } from "@/types/transformationTypes";
+import { creditFee, transformationTypes } from "@/types/transformationTypes";
 import { getCldImageUrl } from "next-cloudinary";
 import { addImage, updateImage } from "@/lib/actions/image.actions";
 import { useRouter } from "next/navigation";
+import NoCredits from "./NoCredits";
 
 export const defaultValues = {
   title: "",
@@ -72,7 +73,14 @@ const PageForm = ({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
+  
   const transformationType = transformationTypes[type];
+  
+  useEffect(() => {
+    if(image && type === 'restore' || type === 'removeBackground'){
+      setNewChange(transformationType.config);
+    }
+  }, [image, transformationType.config,type]);
   const initialValues =
     data && action === "Update"
       ? {
@@ -187,12 +195,13 @@ setIsSubmitting(false);
     setTransformationConfig(deepMergeObjects(newChange, transformationConfig));
     setNewChange(null);
     startTransition(async () => {
-     await updateCredits(userId,-1);
+     await updateCredits(userId,creditFee);
     });
   };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {creditBalance < Math.abs(creditFee) && <NoCredits />}
         <CustomField
           control={form.control}
           name="title"

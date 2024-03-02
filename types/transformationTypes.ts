@@ -49,3 +49,5 @@ export const transformationTypes = {
     icon:Paintbrush ,
   },
 };
+
+export const creditFee = -1

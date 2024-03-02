@@ -2,16 +2,21 @@
 
 import React from 'react'
 import { ImageDown, Loader2 } from "lucide-react";
-import { CldImage } from 'next-cloudinary';
-import { dataUrl, debounce, getImageSize } from '@/lib/utils';
+import { CldImage, getCldImageUrl } from 'next-cloudinary';
+import { dataUrl, debounce, download, getImageSize } from '@/lib/utils';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
 
 const ChangedImage = ({
     image,type,title,transformationConfig,isLoading,setIsLoading,hasDownload = false
 }: TransformedImageProps) => {
 
-    const downloadHandler = () => {
-        
+    const downloadHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        download(getCldImageUrl({
+          width: image?.width,
+          height: image?.height,
+          src: image?.publicId,
+          ...transformationConfig}),title);
     }
   return (
     <div className="flex flex-col gap-4">
@@ -45,13 +50,14 @@ const ChangedImage = ({
             onError={() => {
               debounce(() => {
                 setIsLoading && setIsLoading(false);
-              }, 8000);
+              }, 8000)()
             }}
             {...transformationConfig}
           />
           {isLoading && (
             <div className="flex justify-center items-center absolute left-[50%] top-[50%] size-full -translate-x-1/2 -translate-y-1/2 flex-col gap-2 rounded-[10px] border bg-blue-900/90">
                 <Loader2 className="animate-spin w-8 h-8" />
+                <p className="text-white/80 ">Please wait this may take few seconds</p>
             </div>
           )}
         </div>

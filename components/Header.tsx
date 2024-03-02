@@ -1,3 +1,5 @@
+
+
 import React from "react";
 
 const Header = ({
@@ -7,15 +9,17 @@ const Header = ({
 }: {
   title: string;
   subtitle?: string;
-  icon: any;
+  icon?: any;
 }) => {
   return (
     <div className="flex justify-start gap-5">
-      <div className="bg-[#f6d7f4]  w-[60px] h-[60px] flex justify-center items-center rounded-lg">
-        <p className=" text-blue-900">{icon}</p>
-      </div>
+      {icon && (
+        <div className="bg-[#f6d7f4]  w-[60px] h-[60px] flex justify-center items-center rounded-lg">
+          <p className=" text-blue-900">{icon}</p>
+        </div>
+      )}
       <div>
-        <h1 className="text-[30px] font-bold md:text-[36px] leading-[110%] text-blue-900">
+        <h1 className="text-[30px] font-bold md:text-[36px] leading-[110%] text-blue-900 capitalize">
           {title}
         </h1>
         {subtitle && (

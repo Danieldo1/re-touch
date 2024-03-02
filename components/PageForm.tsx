@@ -108,7 +108,7 @@ const PageForm = ({
       })
 
       const imageData = {
-          title: values.title,
+         title: values.title,
          aspectRatio: values.aspectRatio,
          color: values.color,
          prompt: values.prompt,
@@ -186,7 +186,7 @@ setIsSubmitting(false);
           [fieldName === "prompt" ? "prompt" : "to"]: value,
         },
       }));
-    }, 1000);
+    }, 1000)()
     return onChangeField(value);
   };
 
@@ -224,6 +224,7 @@ setIsSubmitting(false);
             render={({ field }) => (
               <Select
                 onValueChange={(value) => onSelectField(value, field.onChange)}
+                value={field.value}
               >
                 <SelectTrigger className="w-full border-2 border-purple-200/20 shadow-sm shadow-purple-200/15 rounded-[16px] h-[50px] md:h-[54px] text-blue-800 p-16-semibold disabled:opacity-100 placeholder:text-blue-400/50 px-4 py-3 focus:ring-offset-0 focus-visible:ring-transparent focus:ring-transparent focus-visible:ring-0 focus-visible:outline-none">
                   <SelectValue placeholder="Select Size" />

@@ -6,12 +6,13 @@ import { handleError } from "../utils"
 import User from "../models/User";
 import Image from "../models/Image";
 import { redirect } from "next/navigation";
+import {v2 as cloudinary} from 'cloudinary'
 
 
 const populateUser =(query: any) => query.populate({
     path: 'author',
     model: User,
-    select: '_id firstName lastName '
+    select: '_id firstName lastName clerkId '
 })
 // add image
 export async function addImage({
@@ -72,6 +73,47 @@ export async function getImageById(imageId:string){
         if(!image) throw new Error('Image not found')
         
         return JSON.parse(JSON.stringify(image))
+    } catch (error) {
+        handleError(error)
+    }
+}
+
+//Get All
+export async function getAllImages({limit = 10, page = 1,searchQuery = ''}:{
+    limit?: number
+    page: number
+    searchQuery?: string}){
+    try {
+        await connectToDB();
+        cloudinary.config({
+          cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+          api_key: process.env.CLOUDINARY_API_KEY,
+          api_secret: process.env.CLOUDINARY_SECRET_KEY,
+          secure: true
+        });
+       let expression = 'folder=retouch'
+       if(searchQuery) expression += ` AND ${searchQuery}`
+       const {resources} = await cloudinary.search
+       .expression(expression)
+       .execute()
+       const resultIds = resources.map((resource: any) => resource.public_id);
+        let query ={}
+        if(searchQuery){
+            query = {publicId: {$in: resultIds}}
+        }
+        const skip = (Number(page) -1) * limit
+
+        const images = await populateUser(Image.find(query)).sort({updatedAt: -1}).skip(skip).limit(limit)
+
+        const total = await Image.find(query).countDocuments()
+        
+        const savedImages = await Image.find().countDocuments()
+        return {
+            data: JSON.parse(JSON.stringify(images)),
+            totalPages: Math.ceil(total / limit),
+            savedImages
+        }
+        
     } catch (error) {
         handleError(error)
     }

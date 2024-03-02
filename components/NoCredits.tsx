@@ -22,13 +22,15 @@ const NoCredits = () => {
     <AlertDialog defaultOpen>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <div className="flex-between">
-            <p className="p-16-semibold text-dark-400">Insufficient Credits</p>
+          <div className="flex justify-between items-center">
+            <p className="font-semibold text-[16px] leading-[140%] text-blue-700">
+              Insufficient Credits
+            </p>
             <AlertDialogCancel
               className="border-0 p-0 hover:bg-transparent"
               onClick={() => router.push("/profile")}
             >
-             <XIcon className="text-blue-700" />
+              <XIcon className="text-blue-700" />
             </AlertDialogCancel>
           </div>
 
@@ -39,24 +41,24 @@ const NoCredits = () => {
             height={122}
           />
 
-          <AlertDialogTitle className="p-24-bold text-dark-600">
+          <AlertDialogTitle className="font-bold text-[24px] leading-[120%] text-blue-900">
             Oops.... Looks like you&#39;ve run out of free credits!
           </AlertDialogTitle>
 
-          <AlertDialogDescription className="p-16-regular py-3">
+          <AlertDialogDescription className="font-normal text-[16px] leading-[140%] py-3">
             No worries, though - you can keep enjoying our services by grabbing
             more credits.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="button w-full bg-purple-100 text-dark-400"
+            className="py-4 px-6 flex justify-center items-center gap-3 rounded-full font-semibold text-[16px] leading-[140%] focus-visible:ring-offset-0 focus-visible:ring-transparent w-full bg-purple-100 text-blue-600"
             onClick={() => router.push("/profile")}
           >
             No, Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            className="button w-full bg-purple-gradient  bg-cover"
+            className="py-4 px-6 flex justify-center items-center gap-3 rounded-full font-semibold text-[16px] leading-[140%] focus-visible:ring-offset-0 focus-visible:ring-transparent w-full bg-purple-100 text-blue-600  hover:bg-purple-200 bg-cover"
             onClick={() => router.push("/credits")}
           >
             Yes, Proceed

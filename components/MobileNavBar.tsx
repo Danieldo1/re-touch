@@ -73,7 +73,7 @@ const MobileNavBar = () => {
         <SignedOut>
           <Link
             href="/sign-in"
-            className="py-4 px-6 flex-center gap-3 rounded-full p-16-semibold focus-visible:ring-offset-0 focus-visible:ring-transparent bg-purple-100 bg-cover hover:bg-purple-100 hover:shadow-inner"
+            className="py-2 px-3 flex items-center justify-center gap-3 rounded-full text-white font-semibold text-[16px] leading-[140%] focus:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent bg-purple-400 bg-cover hover:bg-purple-500 hover:shadow-inner"
           >
             Sign In
           </Link>

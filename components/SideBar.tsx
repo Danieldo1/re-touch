@@ -136,7 +136,7 @@ const SideBar = () => {
           <SignedOut>
             <Button
               asChild
-              className="py-4 px-6 flex-center gap-3 rounded-full p-16-semibold focus-visible:ring-offset-0 focus-visible:ring-transparent bg-purple-100 bg-cover hover:bg-purple-100 hover:shadow-inner"
+              className="py-4 px-6 flex justify-center items-center gap-3 rounded-full font-semibold text-[16px] leading-[140%] focus-visible:ring-offset-0 focus-visible:ring-transparent bg-purple-400 bg-cover hover:bg-purple-500 hover:shadow-inner"
             >
               <Link href="/sign-in">Sign In</Link>
             </Button>
